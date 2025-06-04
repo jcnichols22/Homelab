@@ -188,7 +188,43 @@ services:
     restart: unless-stopped
 
 
-    
-
-      
 ############################
+# AUDIOBOOKSHELF
+############################
+
+  # audiobookshelf:
+  #   image: ghcr.io/advplyr/audiobookshelf:latest
+  #   container_name: audiobookshelf
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Etc/UTC
+  #   volumes:
+  #     - /media/josh/Media1/Audiobookshelf/config:/config
+  #     - /media/josh/Media1/Audiobookshelf/audiobooks:/data/audiobooks
+  #     #- /media/josh/Media1/Audiobookshelf/podcasts:/data/podcasts
+  #     - /media/josh/Media1/Audiobookshelf/metadata:/data/metadata
+
+  #   ports:
+  #     - 13378:80
+  #   restart: unless-stopped
+
+############################
+
+
+############################
+# TSDPROXY
+############################
+
+  tsdproxy:
+    image: almeidapaulopt/tsdproxy:1
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - datadir:/data
+      - /media/josh/Media1/Tsdproxy/config:/config
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+
+volumes:
+  datadir:
