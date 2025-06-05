@@ -57,45 +57,45 @@ services:
     restart: unless-stopped
 
 ############################
-# BAZARR
+# BAZARR *NOT ACTIVE*
 ############################
 
-  bazarr:
-    image: lscr.io/linuxserver/bazarr:latest
-    container_name: bazarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-    volumes:
-      - /media/josh/Media1/Bazarr/config:/config
-      - /media/josh/Media1/Radarr/movies:/movies #optional
-      - /media/josh/Media1/Sonarr/tvseries:/tv #optional
-    ports:
-      - 6767:6767 #bazarr
-    restart: unless-stopped
+  # bazarr:
+  #   image: lscr.io/linuxserver/bazarr:latest
+  #   container_name: bazarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Etc/UTC
+  #   volumes:
+  #     - /media/josh/Media1/Bazarr/config:/config
+  #     - /media/josh/Media1/Radarr/movies:/movies #optional
+  #     - /media/josh/Media1/Sonarr/tvseries:/tv #optional
+  #   ports:
+  #     - 6767:6767 #bazarr
+  #   restart: unless-stopped
     
 ############################
-# LIDARR
+# LIDARR *NOT ACTIVE*
 ############################
 
-  lidarr:
-    image: lscr.io/linuxserver/lidarr:latest
-    container_name: lidarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-    volumes:
-      - /media/josh/Media1/Lidarr/config:/config
-      - /media/josh/Media1/Lidarr/music:/music #optional
-      - /media/josh/Media1/qbittorrent/downloads:/downloads #optional
-    ports:
-      - 8686:8686 #lidarr
-    restart: unless-stopped
+  # lidarr:
+  #   image: lscr.io/linuxserver/lidarr:latest
+  #   container_name: lidarr
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=Etc/UTC
+  #   volumes:
+  #     - /media/josh/Media1/Lidarr/config:/config
+  #     - /media/josh/Media1/Lidarr/music:/music #optional
+  #     - /media/josh/Media1/qbittorrent/downloads:/downloads #optional
+  #   ports:
+  #     - 8686:8686 #lidarr
+  #   restart: unless-stopped
     
 ############################
-# READARR
+# READARR *NOT ACTIVE*
 ############################
 
   readarr:
@@ -157,7 +157,6 @@ services:
       - 1900:1900/udp #optional
     restart: unless-stopped
     
-    
 ############################
 # PLEX
 ############################
@@ -187,9 +186,8 @@ services:
       - 32414:32414/udp # Optional, Plex discovery
     restart: unless-stopped
 
-
 ############################
-# AUDIOBOOKSHELF
+# AUDIOBOOKSHELF *NOT ACTIVE*
 ############################
 
   # audiobookshelf:
@@ -210,21 +208,5 @@ services:
   #   restart: unless-stopped
 
 ############################
-
-
+# TSDPROXY *NOT ACTIVE*
 ############################
-# TSDPROXY
-############################
-
-  tsdproxy:
-    image: almeidapaulopt/tsdproxy:1
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - datadir:/data
-      - /media/josh/Media1/Tsdproxy/config:/config
-    restart: unless-stopped
-    ports:
-      - "8080:8080"
-
-volumes:
-  datadir:
