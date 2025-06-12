@@ -9,10 +9,16 @@
 
 ### Core Devices
 
-- **Proxmox Host**
+- **PVE**
 
   - HP ProDesk G3 Mini
   - **Specs:** i5-6500T | 32GB RAM | 512GB SSD
+  - **Role:** Hosts different non critical services for productivity and monitoring in LXC containers
+
+- **PVE1**
+
+  - HP ProDesk G3 Mini
+  - **Specs:** i5-6500T | 16GB RAM | 512GB SSD
   - **Role:** Hosts critical network services in LXC containers
 
 - **Media Server**
@@ -39,8 +45,6 @@ This enables:
 
 - Simple device onboarding and access control via Tailscale ACLs.
 
-Note: All IPs and service URLs listed below are accessible only within the Tailscale network.
-
 ---
 
 ## 🌐 Network Architecture
@@ -48,31 +52,34 @@ Note: All IPs and service URLs listed below are accessible only within the Tails
 ISP Modem (Bridge Mode)
 |
 TP-Link ER-605
-/ |
-Proxmox Media Eero APs
-Host Server (Bridge)
+|
+Eero Routers for wireless AP's (Bridge)
 
 - **Subnet:** 192.168.1.0/24 (Flat network)
-- **DNS:** AdGuard (CT100) ↔ Pi-hole (CT104) redundancy
+- **DNS/Adblocking:** AdGuard (CT100)
 - **DHCP:** ER-605 handling leases
 
 ---
 
 ## 🖥️ Proxmox Services (LXC Containers & VM)
 
-| CT/VM ID   | Service          | IP Address           | Functionality                |
-| ---------- | ---------------- | -------------------- | ---------------------------- |
-| `100`      | AdGuard Home     | <!--192.168.1.100--> | Primary DNS/DHCP             |
-| `101` (VM) | Home Assistant   | <!--192.168.1.101--> | Smart home automation        |
-| `102`      | Homarr           | <!--192.168.1.102--> | Service dashboard            |
-| `103`      | Omada Controller | <!--192.168.1.103--> | Router management            |
-| `104`      | Pi-hole          | <!--192.168.1.104--> | Secondary DNS/ad blocking    |
-| `105`      | MySpeed          | <!--192.168.1.105--> | Network speed tests          |
-| `106`      | RustDesk Server  | <!--192.168.1.106--> | Remote access hub            |
-| `107`      | Uptime Kuma      | <!--192.168.1.107--> | Service monitoring           |
-| `108`      | Nextcloud        | <!--192.168.1.108--> | File sharing & collaboration |
-| `109`      | NetBox           | <!--192.168.1.109--> | Network documentation        |
-| `110`      | phpIPAM          | <!--192.168.1.110--> | IP address management        |
+| CT/VM ID   | Service             | Functionality                        |
+| ---------- | ------------------- | ------------------------------------ |
+| `100`      | AdGuard Home        | Primary DNS/DHCP                     |
+| `101` (VM) | Home Assistant      | Smart home automation                |
+| `102`      | Homarr              | Service dashboard                    |
+| `103`      | Omada Controller    | Router management                    |
+| `105`      | MySpeed             | Network speed tests                  |
+| `106`      | RustDesk Server     | Remote access hub                    |
+| `107`      | Uptime Kuma         | Service monitoring                   |
+| `108`      | Nextcloud           | File sharing & collaboration         |
+| `109`      | NetBox              | Network documentation                |
+| `110`      | phpIPAM             | IP address management                |
+| `111`      | Reactive Resume     | Resume management                    |
+| `112`      | Stirling PDF        | PDF management                       |
+| `114`      | Prometheus          | Monitoring and alerting              |
+| `115`      | Grafana             | Visualization dashboard              |
+| `117`      | Prometheus Exporter | Exports server metrics to Prometheus |
 
 ---
 
@@ -80,46 +87,44 @@ Host Server (Bridge)
 
 **Docker Compose Services:**
 
-version: '3.8'
-services:
+**version: 3.8**
 
 # Movie Management
 
-radarr:
-image: linuxserver/radarr
+**Radarr:** <br>
+**image:** linuxserver/radarr
 
 # TV-Show management
 
-sonarr:
+**Sonarr:** <br>
+**image:** linuxserver/sonarr
 image: linuxserver/sonarr
 
 # Music
 
-lidarr:
-image: linuxserver/lidarr
+**Lidarr:** <br>
+**image:** linuxserver/lidarr
 
 # Books
 
-readarr:
-image: linuxserver/readarr
+**Readarr:** <br>
+**image:** linuxserver/readarr
 
 # Indexer Aggregator
 
-prowlarr:
-image: linuxserver/prowlarr
+**Prowlarr:** <br>
+**image:** linuxserver/prowlarr
 
 # Media streaming
 
-jellyfin:
-image: jellyfin/jellyfin
+**Jellyfin:** <br>
+**image:** jellyfin/jellyfin
 
-plex:
-image: linuxserver/plex
+**Plex:** <br>
+**image:** linuxserver/plex
 
 **Data Flow:**
 Content Requests → \*Arr Apps → Download Clients → Media Library → Jellyfin/Plex
-
----
 
 ## 🔄 Backup & Maintenance
 
@@ -132,10 +137,7 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
   - With only 1 TB of media Currently no backups for Media
 
-- **Network Resilience**
-
-  - Dual DNS (AdGuard + Pi-hole)
-  - AP redundancy with Eero mesh
+<!-- - **Network Resilience** -->
 
 - **Update Schedule:**
 
@@ -144,29 +146,17 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 - **Monitoring:**
 
   - Uptime Kuma checks all services every 5 minutes
+  - Prometheus collects metrics from all containers
+  - Grafana dashboards for visualization
 
 - **Documentation:**
   - Network changes logged in NetBox
   - IP assignments tracked in phpIPAM
   - Change log via Github
 
----
-
-<!-- ## 🔗 Access URLs
-
-| Service          | URL                     |
-| ---------------- | ----------------------- |
-| Omada Controller | https://omada.lab.local |
-| Homarr Dashboard | http://homarr.lab.local |
-| Nextcloud        | https://cloud.lab.local |
-| Jellyfin         | http://jelly.lab.local  |
-
---- -->
-
 ## 🚀 Future Plans
 
 - Implement VLAN segmentation
-- Add redundant Proxmox node to separate network related LXC's
 - Unraid for mass storage
 - Transition to Ubiquiti (Router, POE Switch, 2 AP)
 - Offsite Backup
