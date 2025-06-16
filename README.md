@@ -141,7 +141,7 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
 - **Update Schedule:**
 
-  - Every 2nd Sunday monthly maintenance window
+  - Every 2 weeks on Sunday at midnight cron job updates nodes, vm's, containers
 
 - **Monitoring:**
 
