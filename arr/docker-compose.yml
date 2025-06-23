@@ -57,23 +57,23 @@ services:
     restart: unless-stopped
 
 ############################
-# BAZARR *NOT ACTIVE*
+# BAZARR
 ############################
 
-  # bazarr:
-  #   image: lscr.io/linuxserver/bazarr:latest
-  #   container_name: bazarr
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=Etc/UTC
-  #   volumes:
-  #     - /media/josh/Media1/Bazarr/config:/config
-  #     - /media/josh/Media1/Radarr/movies:/movies #optional
-  #     - /media/josh/Media1/Sonarr/tvseries:/tv #optional
-  #   ports:
-  #     - 6767:6767 #bazarr
-  #   restart: unless-stopped
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /media/josh/Media1/Bazarr/config:/config
+      - /media/josh/Media1/Radarr/movies:/movies #optional
+      - /media/josh/Media1/Sonarr/tvseries:/tv #optional
+    ports:
+      - 6767:6767 #bazarr
+    restart: unless-stopped
     
 ############################
 # LIDARR *NOT ACTIVE*
