@@ -1,9 +1,7 @@
 ---
 services:
 
-############################
 # RADARR
-############################
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -20,9 +18,7 @@ services:
       - 7878:7878 #radarr
     restart: unless-stopped
     
-############################
 # SONARR
-############################
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -39,9 +35,7 @@ services:
       - 8989:8989 #sonarr
     restart: unless-stopped
     
-############################
 # PROWLARR
-############################
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -56,9 +50,7 @@ services:
       - 9696:9696 #prowlarr
     restart: unless-stopped
 
-############################
 # BAZARR
-############################
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
@@ -75,9 +67,7 @@ services:
       - 6767:6767 #bazarr
     restart: unless-stopped
     
-############################
 # LIDARR *NOT ACTIVE*
-############################
 
   # lidarr:
   #   image: lscr.io/linuxserver/lidarr:latest
@@ -94,9 +84,8 @@ services:
   #     - 8686:8686 #lidarr
   #   restart: unless-stopped
     
-############################
-# READARR *NOT ACTIVE*
-############################
+# READARR
+
 
   readarr:
     image: lscr.io/linuxserver/readarr:develop
@@ -113,9 +102,7 @@ services:
       - 8787:8787 #readarr
     restart: unless-stopped
 
-############################
 # TDARR
-############################
 
   tdarr:
     image: lscr.io/linuxserver/tdarr:latest
@@ -132,9 +119,7 @@ services:
       - 8265:8265 #tdarr web UI
     restart: unless-stopped
     
-############################
 # QBITTORRENT
-############################
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -154,9 +139,7 @@ services:
       - 6881:6881/udp #qbittorrent
     restart: unless-stopped
     
-############################
 # JELLYFIN
-############################
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
@@ -176,9 +159,7 @@ services:
       - 1900:1900/udp #optional
     restart: unless-stopped
     
-############################
 # PLEX
-############################
 
   plex:
     image: lscr.io/linuxserver/plex:latest
@@ -205,9 +186,7 @@ services:
       - 32414:32414/udp # Optional, Plex discovery
     restart: unless-stopped
 
-############################
 # AUDIOBOOKSHELF *NOT ACTIVE*
-############################
 
   # audiobookshelf:
   #   image: ghcr.io/advplyr/audiobookshelf:latest
@@ -225,7 +204,3 @@ services:
   #   ports:
   #     - 13378:80
   #   restart: unless-stopped
-
-############################
-# TSDPROXY *NOT ACTIVE*
-############################
