@@ -112,6 +112,25 @@ services:
     ports:
       - 8787:8787 #readarr
     restart: unless-stopped
+
+############################
+# TDARR
+############################
+
+  tdarr:
+    image: lscr.io/linuxserver/tdarr:latest
+    container_name: tdarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /media/josh/Media1/Tdarr/config:/config
+      - /media/josh/Media1/Tdarr/cache:/cache #optional
+      - /media/josh/Media1/Tdarr/media:/media #optional
+    ports:
+      - 8265:8265 #tdarr web UI
+    restart: unless-stopped
     
 ############################
 # QBITTORRENT
