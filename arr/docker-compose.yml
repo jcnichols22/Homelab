@@ -104,20 +104,26 @@ services:
 
 # TDARR
 
-  tdarr:
-    image: lscr.io/linuxserver/tdarr:latest
-    container_name: tdarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-    volumes:
-      - /media/josh/Media1/Tdarr/config:/config
-      - /media/josh/Media1/Tdarr/cache:/cache #optional
-      - /media/josh/Media1/Tdarr/media:/media #optional
-    ports:
-      - 8265:8265 #tdarr web UI
-    restart: unless-stopped
+    tdarr:
+      image: ghcr.io/haveagitgat/tdarr:latest
+      container_name: tdarr
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Etc/UTC
+        - UMASK_SET=002 # optional, matches LinuxServer defaults
+      volumes:
+        - /media/josh/Media1/Tdarr/config:/app/config
+        - /media/josh/Media1/Tdarr/server:/app/server
+        - /media/josh/Media1/Tdarr/transcode_cache:/app/transcode_cache # optional, for temp files
+        - /media/josh/Media1/Radarr/movies:/movies # optional, access to movies
+        - /media/josh/Media1/Sonarr/tvseries:/tv # optional, access to TV
+        - /media/josh/Media1/qbittorrent/downloads:/downloads # optional, access to downloads
+      ports:
+        - 8265:8265 # Tdarr WebUI
+        - 8266:8266 # Tdarr Server
+      restart: unless-stopped
+
     
 # QBITTORRENT
 
