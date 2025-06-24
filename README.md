@@ -1,30 +1,36 @@
-# Homelab README
+# 👨🏻‍💻 Homelab
 
-**Last Updated:** May 31, 2025  
-**Primary Purpose:** Network management, self-hosted services, and media streaming
-
----
+**Last Updated:** June 24th, 2025  
+**Primary Purpose:**  
+To provide a secure, self-hosted environment for network management, automation, and media streaming. This homelab leverages Proxmox virtualization, Docker containers, and a flat network architecture to deliver critical services (DNS, ad-blocking, monitoring, automation) and a robust media stack, all managed with strong security (Tailscale VPN), centralized documentation, and automated backups and updates.
+<br>
+<br>
+<br>
 
 ## 🔧 Hardware Configuration
 
-### Core Devices
+### Core Devices:
 
-- **PVE**
+### PVE
 
-  - HP ProDesk G3 Mini
-  - **Specs:** i5-6500T | 32GB RAM | 512GB SSD
-  - **Role:** Hosts different non critical services for productivity and monitoring in LXC containers
+- **Platform:** HP ProDesk 600 G3 Mini
+- **OS:** Proxmox VE 8.0
+- **Specs:** i5-7500T | 32GB RAM | 500GB SSD
+- **Role:** Hosts different non critical services for productivity and monitoring in LXC containers
 
-- **PVE1**
+### PVE1
 
-  - HP ProDesk G3 Mini
-  - **Specs:** i5-6500T | 16GB RAM | 512GB SSD
-  - **Role:** Hosts critical network services in LXC containers
+- **Platform:** HP ProDesk 600 G3 Mini
+- **OS:** Proxmox VE 8.0
+- **Specs:** i5-7500T | 16GB RAM | 500GB SSD
+- **Role:** Hosts critical network services in LXC containers
 
-- **Media Server**
-  - Ubuntu Server (HP ProDesk G3 SFF)
-  - **Specs:** i5-6500 | 16GB RAM | 1TB Storage
-  - **Role:** Media stack via Docker containers
+### Media Server
+
+- **Platform:** HP ProDesk 600 G3 SFF
+- **OS:** Ubuntu 24.04.2 LTS
+- **Specs:** i5-8500 | 16GB RAM | 500GB NVME | 1TB Media Storage
+- **Role:** Media stack via Docker containers
 
 ### Networking
 
@@ -32,7 +38,9 @@
 - **Access Points:** 2× Eero Pro 6 (Bridge mode)
 - **ISP:** AT&T Modem in bridge mode
 
----
+<br>
+<br>
+<br>
 
 ## 🔒 Secure Connectivity: Tailscale Mesh VPN
 
@@ -45,7 +53,9 @@ This enables:
 
 - Simple device onboarding and access control via Tailscale ACLs.
 
----
+<br>
+<br>
+<br>
 
 ## 🌐 Network Architecture
 
@@ -56,22 +66,23 @@ TP-Link ER-605
 Eero Routers for wireless AP's (Bridge)
 
 - **Subnet:** 192.168.1.0/24 (Flat network)
-- **DNS/Adblocking:** AdGuard (CT100)
+- **DNS/Adblocking:** AdGuard (LXC 100)
 - **DHCP:** ER-605 handling leases
 
----
+<br>
+<br>
+<br>
 
 ## 🖥️ Proxmox Services (LXC Containers & VM)
 
+### PVE Node:
+
 | CT/VM ID   | Service             | Functionality                        |
 | ---------- | ------------------- | ------------------------------------ |
-| `100`      | AdGuard Home        | Primary DNS/DHCP                     |
 | `101` (VM) | Home Assistant      | Smart home automation                |
 | `102`      | Homarr              | Service dashboard                    |
-| `103`      | Omada Controller    | Router management                    |
+| `104`      | Monica              | Personal CRM                         |
 | `105`      | MySpeed             | Network speed tests                  |
-| `106`      | RustDesk Server     | Remote access hub                    |
-| `107`      | Uptime Kuma         | Service monitoring                   |
 | `108`      | Nextcloud           | File sharing & collaboration         |
 | `109`      | NetBox              | Network documentation                |
 | `110`      | phpIPAM             | IP address management                |
@@ -81,50 +92,42 @@ Eero Routers for wireless AP's (Bridge)
 | `115`      | Grafana             | Visualization dashboard              |
 | `117`      | Prometheus Exporter | Exports server metrics to Prometheus |
 
----
+### PVE1 Node:
+
+| CT/VM ID | Service          | Functionality                |
+| -------- | ---------------- | ---------------------------- |
+| `100`    | AdGuard Home     | Ad blocking and DNS          |
+| `103`    | Omada Controller | Router management            |
+| `106`    | RustDesk Server  | Remote access hub            |
+| `107`    | Uptime Kuma      | Service monitoring           |
+| `113`    | Ansible          | Automation and orchestration |
+
+<br>
+<br>
+<br>
 
 ## 🎥 Media Server Stack
 
 **Docker Compose Services:**
 
-**version: 3.8**
+| Service  | Purpose            | Docker Image           |
+| -------- | ------------------ | ---------------------- |
+| Radarr   | Movie management   | `linuxserver/radarr`   |
+| Sonarr   | TV show management | `linuxserver/sonarr`   |
+| Lidarr   | Music management   | `linuxserver/lidarr`   |
+| Readarr  | Book management    | `linuxserver/readarr`  |
+| Prowlarr | Indexer aggregator | `linuxserver/prowlarr` |
+| Jellyfin | Media streaming    | `jellyfin/jellyfin`    |
+| Plex     | Media streaming    | `linuxserver/plex`     |
 
-# Movie Management
-
-**Radarr:** <br>
-**image:** linuxserver/radarr
-
-# TV-Show management
-
-**Sonarr:** <br>
-**image:** linuxserver/sonarr
-image: linuxserver/sonarr
-
-# Music
-
-**Lidarr:** <br>
-**image:** linuxserver/lidarr
-
-# Books
-
-**Readarr:** <br>
-**image:** linuxserver/readarr
-
-# Indexer Aggregator
-
-**Prowlarr:** <br>
-**image:** linuxserver/prowlarr
-
-# Media streaming
-
-**Jellyfin:** <br>
-**image:** jellyfin/jellyfin
-
-**Plex:** <br>
-**image:** linuxserver/plex
+**Compose Version:** `3.8`
 
 **Data Flow:**
 Content Requests → \*Arr Apps → Download Clients → Media Library → Jellyfin/Plex
+
+<br>
+<br>
+<br>
 
 ## 🔄 Backup & Maintenance
 
@@ -137,22 +140,39 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
   - With only 1 TB of media Currently no backups for Media
 
-<!-- - **Network Resilience** -->
-
 - **Update Schedule:**
 
-  - Every 2 weeks on Sunday at midnight cron job updates nodes, vm's, containers
+  - Every 1st Sunday at midnight cron job updates nodes, vm's, containers using Ansible playbooks
 
-- **Monitoring:**
+- **Automation:**
 
-  - Uptime Kuma checks all services every 5 minutes
-  - Prometheus collects metrics from all containers
-  - Grafana dashboards for visualization
+  - Ansible playbooks for configuration management
 
-- **Documentation:**
-  - Network changes logged in NetBox
-  - IP assignments tracked in phpIPAM
-  - Change log via Github
+- **Monitoring & Alerts:**
+
+  - Prometheus alerts for critical service failures
+  - Grafana dashboards for real-time monitoring
+  - Uptime Kuma for service availability checks
+
+<br>
+<br>
+<br>
+
+## 📜 Documentation & Change Management
+
+- **Network Documentation:**
+  - NetBox for network inventory and IP management
+  - phpIPAM for IP address management
+- **Service Documentation:**
+  - Homarr dashboard for service status and links
+  - Reactive Resume for personal documentation
+- **Change Management:**
+  - Ansible playbooks for configuration management
+  - Version control via GitHub for all scripts and configurations
+
+<br>
+<br>
+<br>
 
 ## 🚀 Future Plans
 
@@ -161,7 +181,16 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 - Transition to Ubiquiti (Router, POE Switch, 2 AP)
 - Offsite Backup
 - Remove as many paid cloud services as possible
-- Learning Ansible for automation and easy deployment
+- GitHub Actions for CI/CD
+- Reverse engineer and use Ansible to deploy and configure services to PVE1 and PVE2
+- Add more redundancy to the network
+- Log management with Loki or Graylog
+- Expand automation with Ansible, Terraform, GitHub Actions, and NixOS
+- Upgrade media server to 128GB RAM and increase storage to 10TB
+- Upgrade PVE and PVE1 to 64GB RAM
+  <br>
+  <br>
+  <br>
 
 ---
 
