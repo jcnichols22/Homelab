@@ -1,9 +1,7 @@
 ---
 services:
 
-############################
 # RADARR
-############################
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
@@ -20,9 +18,7 @@ services:
       - 7878:7878 #radarr
     restart: unless-stopped
     
-############################
 # SONARR
-############################
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
@@ -39,9 +35,7 @@ services:
       - 8989:8989 #sonarr
     restart: unless-stopped
     
-############################
 # PROWLARR
-############################
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
@@ -56,28 +50,24 @@ services:
       - 9696:9696 #prowlarr
     restart: unless-stopped
 
-############################
-# BAZARR *NOT ACTIVE*
-############################
+# BAZARR
 
-  # bazarr:
-  #   image: lscr.io/linuxserver/bazarr:latest
-  #   container_name: bazarr
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=Etc/UTC
-  #   volumes:
-  #     - /media/josh/Media1/Bazarr/config:/config
-  #     - /media/josh/Media1/Radarr/movies:/movies #optional
-  #     - /media/josh/Media1/Sonarr/tvseries:/tv #optional
-  #   ports:
-  #     - 6767:6767 #bazarr
-  #   restart: unless-stopped
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /media/josh/Media1/Bazarr/config:/config
+      - /media/josh/Media1/Radarr/movies:/movies #optional
+      - /media/josh/Media1/Sonarr/tvseries:/tv #optional
+    ports:
+      - 6767:6767 #bazarr
+    restart: unless-stopped
     
-############################
 # LIDARR *NOT ACTIVE*
-############################
 
   # lidarr:
   #   image: lscr.io/linuxserver/lidarr:latest
@@ -94,9 +84,8 @@ services:
   #     - 8686:8686 #lidarr
   #   restart: unless-stopped
     
-############################
-# READARR *NOT ACTIVE*
-############################
+# READARR
+
 
   readarr:
     image: lscr.io/linuxserver/readarr:develop
@@ -112,10 +101,31 @@ services:
     ports:
       - 8787:8787 #readarr
     restart: unless-stopped
+
+# TDARR
+
+    tdarr:
+      image: ghcr.io/haveagitgat/tdarr:latest
+      container_name: tdarr
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Etc/UTC
+        - UMASK_SET=002 # optional, matches LinuxServer defaults
+      volumes:
+        - /media/josh/Media1/Tdarr/config:/app/config
+        - /media/josh/Media1/Tdarr/server:/app/server
+        - /media/josh/Media1/Tdarr/transcode_cache:/app/transcode_cache # optional, for temp files
+        - /media/josh/Media1/Radarr/movies:/movies # optional, access to movies
+        - /media/josh/Media1/Sonarr/tvseries:/tv # optional, access to TV
+        - /media/josh/Media1/qbittorrent/downloads:/downloads # optional, access to downloads
+      ports:
+        - 8265:8265 # Tdarr WebUI
+        - 8266:8266 # Tdarr Server
+      restart: unless-stopped
+
     
-############################
 # QBITTORRENT
-############################
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -135,9 +145,7 @@ services:
       - 6881:6881/udp #qbittorrent
     restart: unless-stopped
     
-############################
 # JELLYFIN
-############################
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
@@ -157,9 +165,7 @@ services:
       - 1900:1900/udp #optional
     restart: unless-stopped
     
-############################
 # PLEX
-############################
 
   plex:
     image: lscr.io/linuxserver/plex:latest
@@ -186,9 +192,7 @@ services:
       - 32414:32414/udp # Optional, Plex discovery
     restart: unless-stopped
 
-############################
 # AUDIOBOOKSHELF *NOT ACTIVE*
-############################
 
   # audiobookshelf:
   #   image: ghcr.io/advplyr/audiobookshelf:latest
@@ -206,7 +210,3 @@ services:
   #   ports:
   #     - 13378:80
   #   restart: unless-stopped
-
-############################
-# TSDPROXY *NOT ACTIVE*
-############################
