@@ -15,7 +15,7 @@ To provide a secure, self-hosted environment for network management, automation,
 <br>
 
 <a name="relevant-repositories"></a>
-## 📦 Relevant Repositories (#relevant-repositories)
+## 📦 Relevant Repositories
 
 [⬆️ Return to Top](#homelab)
 
