@@ -5,16 +5,17 @@
 To provide a secure, self-hosted environment for network management, automation, and media streaming. This homelab leverages Proxmox virtualization, Docker containers, and a flat network architecture to deliver critical services (DNS, ad-blocking, monitoring, automation) and a robust media stack, all managed with strong security (Tailscale VPN), centralized documentation, and automated backups and updates.
 
 ---
-
+<a name="homelab"></a>
 ## 📑 Table of Contents
 
-| [Relevant Repositories](#relevant-repositories) | [Hardware Configuration](#hardware-configuration) | [Tailscale VPN](#secure-connectivity-tailscale-mesh-vpn) | [Network Architecture](#network-architecture) | [Proxmox Services](#proxmox-services-lxc-containers--vm) | [Media Server Stack](#media-server-stack) | [Backup & Maintenance](#backup--maintenance) | [Docs & Change Mgmt](#documentation--change-management) | [Future Plans](#future-plans) |
+| [Relevant Repositories](#relevant-repositories) | [Hardware Configuration](#hardware-configuration) | [Tailscale VPN](#secure-connectivity-tailscale-mesh-vpn) | [Network Architecture](#network-architecture) | [Proxmox Services](#proxmox) | [Media Server Stack](#media) | [Backup & Maintenance](#backup--maintenance) | [Docs & Change Mgmt](#documentation) | [Future Plans](#future-plans) |
 
 ---
 
 <br>
 
-## 📦 Relevant Repositories
+<a name="relevant-repositories"></a>
+## 📦 Relevant Repositories (#relevant-repositories)
 
 [⬆️ Return to Top](#homelab)
 
@@ -25,6 +26,7 @@ To provide a secure, self-hosted environment for network management, automation,
 
 <br>
 
+<a name="hardware-configuration"></a>
 ## 🔧 Hardware Configuration
 
 [⬆️ Return to Top](#homelab)
@@ -60,6 +62,7 @@ To provide a secure, self-hosted environment for network management, automation,
 
 <br>
 
+<a name="secure-connectivity-tailscale-mesh-vpn"></a>
 ## 🔒 Secure Connectivity: Tailscale Mesh VPN
 
 [⬆️ Return to Top](#homelab)
@@ -73,6 +76,7 @@ This enables:
 
 <br>
 
+<a name="network-architecture"></a>
 ## 🌐 Network Architecture
 
 [⬆️ Return to Top](#homelab)
@@ -89,6 +93,7 @@ Eero Routers for wireless AP's (Bridge)
 
 <br>
 
+<a name="proxmox"></a>
 ## 🖥️ Proxmox Services (LXC Containers & VM)
 
 [⬆️ Return to Top](#homelab)
@@ -122,6 +127,7 @@ Eero Routers for wireless AP's (Bridge)
 
 <br>
 
+<a name="media"></a>
 ## 🎥 Media Server Stack
 
 [⬆️ Return to Top](#homelab)
@@ -145,6 +151,7 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
 <br>
 
+<a name="backup--maintenance"></a>
 ## 🔄 Backup & Maintenance
 
 [⬆️ Return to Top](#homelab)
@@ -173,9 +180,10 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
 <br>
 
+<a name="documentation"></a>
 ## 📜 Documentation & Change Management
 
-[⬆️ Return to Top](#homelab)
+[⬆️ Return to Top](homelab)
 
 - **Network Documentation:**
   - NetBox for network inventory and IP management
@@ -189,6 +197,7 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
 <br>
 
+<a name="future-plans"></a>
 ## 🚀 Future Plans
 
 [⬆️ Return to Top](#homelab)
