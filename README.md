@@ -3,11 +3,31 @@
 **Last Updated:** June 24th, 2025  
 **Primary Purpose:**  
 To provide a secure, self-hosted environment for network management, automation, and media streaming. This homelab leverages Proxmox virtualization, Docker containers, and a flat network architecture to deliver critical services (DNS, ad-blocking, monitoring, automation) and a robust media stack, all managed with strong security (Tailscale VPN), centralized documentation, and automated backups and updates.
+
+---
+
+## 📑 Table of Contents
+
+| [Relevant Repositories](#relevant-repositories) | [Hardware Configuration](#hardware-configuration) | [Tailscale VPN](#secure-connectivity-tailscale-mesh-vpn) | [Network Architecture](#network-architecture) | [Proxmox Services](#proxmox-services-lxc-containers--vm) | [Media Server Stack](#media-server-stack) | [Backup & Maintenance](#backup--maintenance) | [Docs & Change Mgmt](#documentation--change-management) | [Future Plans](#future-plans) |
+
+---
+
 <br>
-<br>
+
+## 📦 Relevant Repositories
+
+[⬆️ Return to Top](#homelab)
+
+- [media](https://github.com/jcnichols22/media): Docker Compose files and configuration for the media server stack.
+- [dotfiles](https://github.com/jcnichols22/dotfiles): Personal dotfiles for shell, editor, and system configuration.
+- [Ansible](https://github.com/jcnichols22/Ansible): Main Ansible playbooks for automating homelab provisioning and updates.
+- [ansible_scripts](https://github.com/jcnichols22/ansible_scripts): Additional Ansible scripts and roles for specialized automation tasks.
+
 <br>
 
 ## 🔧 Hardware Configuration
+
+[⬆️ Return to Top](#homelab)
 
 ### Core Devices:
 
@@ -39,30 +59,28 @@ To provide a secure, self-hosted environment for network management, automation,
 - **ISP:** AT&T Modem in bridge mode
 
 <br>
-<br>
-<br>
 
 ## 🔒 Secure Connectivity: Tailscale Mesh VPN
+
+[⬆️ Return to Top](#homelab)
 
 All core devices, services, and management interfaces are securely connected via Tailscale, creating a private WireGuard-based mesh network overlay across the entire homelab infrastructure.
 This enables:
 
 - Secure remote access to all services from anywhere, without exposing ports to the public internet.
-
 - Seamless inter-device communication across physical locations and networks.
-
 - Simple device onboarding and access control via Tailscale ACLs.
 
-<br>
-<br>
 <br>
 
 ## 🌐 Network Architecture
 
-ISP Modem (Bridge Mode)
-|
-TP-Link ER-605
-|
+[⬆️ Return to Top](#homelab)
+
+ISP Modem (Bridge Mode)  
+|  
+TP-Link ER-605  
+|  
 Eero Routers for wireless AP's (Bridge)
 
 - **Subnet:** 192.168.1.0/24 (Flat network)
@@ -70,10 +88,10 @@ Eero Routers for wireless AP's (Bridge)
 - **DHCP:** ER-605 handling leases
 
 <br>
-<br>
-<br>
 
 ## 🖥️ Proxmox Services (LXC Containers & VM)
+
+[⬆️ Return to Top](#homelab)
 
 ### PVE Node:
 
@@ -103,10 +121,10 @@ Eero Routers for wireless AP's (Bridge)
 | `113`    | Ansible          | Automation and orchestration |
 
 <br>
-<br>
-<br>
 
 ## 🎥 Media Server Stack
+
+[⬆️ Return to Top](#homelab)
 
 **Docker Compose Services:**
 
@@ -122,14 +140,14 @@ Eero Routers for wireless AP's (Bridge)
 
 **Compose Version:** `3.8`
 
-**Data Flow:**
+**Data Flow:**  
 Content Requests → \*Arr Apps → Download Clients → Media Library → Jellyfin/Plex
 
 <br>
-<br>
-<br>
 
 ## 🔄 Backup & Maintenance
+
+[⬆️ Return to Top](#homelab)
 
 - **Proxmox Backups**
 
@@ -149,16 +167,15 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
   - Ansible playbooks for configuration management
 
 - **Monitoring & Alerts:**
-
   - Prometheus alerts for critical service failures
   - Grafana dashboards for real-time monitoring
   - Uptime Kuma for service availability checks
 
 <br>
-<br>
-<br>
 
 ## 📜 Documentation & Change Management
+
+[⬆️ Return to Top](#homelab)
 
 - **Network Documentation:**
   - NetBox for network inventory and IP management
@@ -171,10 +188,10 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
   - Version control via GitHub for all scripts and configurations
 
 <br>
-<br>
-<br>
 
 ## 🚀 Future Plans
+
+[⬆️ Return to Top](#homelab)
 
 - Implement VLAN segmentation
 - Unraid for mass storage
@@ -188,12 +205,9 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 - Expand automation with Ansible, Terraform, GitHub Actions, and NixOS
 - Upgrade media server to 128GB RAM and increase storage to 10TB
 - Upgrade PVE and PVE1 to 64GB RAM
-  <br>
-  <br>
-  <br>
+
+<br>
 
 ---
 
-**This setup combines enterprise networking features with self-hosted services, using Proxmox for virtualization and Docker for container management. The flat network simplifies administration while providing essential redundancy through dual DNS and AP configurations.**
-
----
+\*\*This setup combines enterprise networking features with self-hosted services, using Proxmox for virtualization and Docker for container management. The flat network simplifies administration while providing essential redundancy through dual
