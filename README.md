@@ -1,6 +1,6 @@
 # 👨🏻‍💻 Homelab
 
-**Last Updated:** June 24th, 2025  
+**Last Updated:** July 11th, 2025  
 **Primary Purpose:**  
 To provide a secure, self-hosted environment for network management, automation, and media streaming. This homelab leverages Proxmox virtualization, Docker containers, and a flat network architecture to deliver critical services (DNS, ad-blocking, monitoring, automation) and a robust media stack, all managed with strong security (Tailscale VPN), centralized documentation, and automated backups and updates.
 
@@ -57,6 +57,7 @@ To provide a secure, self-hosted environment for network management, automation,
 ### Networking
 
 - **Router:** TP-Link ER-605 (Omada managed)
+- **Switch:** TP-Link TL-SG1016 (16-port unmanaged)
 - **Access Points:** 2× Eero Pro 6 (Bridge mode)
 - **ISP:** AT&T Modem in bridge mode
 
@@ -81,14 +82,16 @@ This enables:
 
 [⬆️ Return to Top](#homelab)
 
-ISP Modem (Bridge Mode)  
+ISP Modem (Passthrough)  
 |  
-TP-Link ER-605  
-|  
+TP-Link ER-605 (Router)  
+|
+Tp-Link TL-SG1016 (Switch) 
+| 
 Eero Routers for wireless AP's (Bridge)
 
 - **Subnet:** 192.168.1.0/24 (Flat network)
-- **DNS/Adblocking:** AdGuard (LXC 100)
+- **DNS/Adblocking:** Pihole (LXC 100)
 - **DHCP:** ER-605 handling leases
 
 <br>
@@ -104,7 +107,7 @@ Eero Routers for wireless AP's (Bridge)
 | ---------- | ------------------- | ------------------------------------ |
 | `101` (VM) | Home Assistant      | Smart home automation                |
 | `102`      | Homarr              | Service dashboard                    |
-| `104`      | Monica              | Personal CRM                         |
+<!-- | `104`      | Monica              | Personal CRM                         | -->
 | `105`      | MySpeed             | Network speed tests                  |
 | `108`      | Nextcloud           | File sharing & collaboration         |
 | `109`      | NetBox              | Network documentation                |
@@ -114,16 +117,24 @@ Eero Routers for wireless AP's (Bridge)
 | `114`      | Prometheus          | Monitoring and alerting              |
 | `115`      | Grafana             | Visualization dashboard              |
 | `117`      | Prometheus Exporter | Exports server metrics to Prometheus |
-
+| `124`      | ITSM-NG             | IT Service Management                |
 ### PVE1 Node:
 
 | CT/VM ID | Service          | Functionality                |
 | -------- | ---------------- | ---------------------------- |
-| `100`    | AdGuard Home     | Ad blocking and DNS          |
+<!-- | `100`    | AdGuard Home     | Ad blocking and DNS          | -->
 | `103`    | Omada Controller | Router management            |
+| `104`    | Pihole           | DNS and ad-blocking          |
 | `106`    | RustDesk Server  | Remote access hub            |
 | `107`    | Uptime Kuma      | Service monitoring           |
 | `113`    | Ansible          | Automation and orchestration |
+| `116`    | iVentoy          | Network booting and ISO management |
+| `120`    | Docker           | Container management running Netbot.xyz        | 
+| `122`    | InfluxDB        | Time-series database for metrics |
+| `123`    | Semaphore       | CI/CD pipeline management    |
+| `125`    |Nginx Proxy Manager | Reverse proxy management      |
+| `126`    | Apache Guacamole | Remote desktop gateway       |
+| `127`    | Pialert         | Personal alerting system     |
 
 <br>
 
