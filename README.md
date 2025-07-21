@@ -27,10 +27,15 @@ To provide a secure, self-hosted environment for network management, automation,
 
 ### Media Server
 
-- **Platform:** HP ProDesk 600 G3 SFF
+- **Platform:** Rosewill RSV-Z2600U 2U Rackmount Case
+- **Motherboard:** ASRock B365M-HDV
+- **Processor:** Intel Core i5-8500
+- **Memory:** 16GB DDR4 RAM
 - **OS:** Ubuntu 24.04.2 LTS
-- **Specs:** i5-8500 | 16GB RAM | 500GB NVME | 1TB Media Storage
-- **Role:** Media stack via Docker containers
+- **Boot Drive:** 500GB NVMe SSD
+- **Media Storage:** 2TB (MergerFS pool of 2 x 1TB HDDs)
+- **Role:** Media stack via Docker containers (Jellyfin, Radarr, Sonarr, Prowlarr, etc.)
+- **Purpose:** Purpose-built media server for 24/7 operation, scalable storage, and home/remote streaming.
 
 ### Networking
 
@@ -110,15 +115,14 @@ Eero Routers for wireless AP's (Bridge)
 
 **Docker Compose Services:**
 
-| Service  | Purpose            | Docker Image           |
-| -------- | ------------------ | ---------------------- |
-| Radarr   | Movie management   | `linuxserver/radarr`   |
-| Sonarr   | TV show management | `linuxserver/sonarr`   |
-| Lidarr   | Music management   | `linuxserver/lidarr`   |
-| Readarr  | Book management    | `linuxserver/readarr`  |
-| Prowlarr | Indexer aggregator | `linuxserver/prowlarr` |
-| Jellyfin | Media streaming    | `jellyfin/jellyfin`    |
-| Plex     | Media streaming    | `linuxserver/plex`     |
+| Service    | Purpose            | Docker Image            |
+| ---------- | ------------------ | ----------------------- |
+| Radarr     | Movie management   | `linuxserver/radarr`    |
+| Sonarr     | TV show management | `linuxserver/sonarr`    |
+| Readarr    | Book management    | `linuxserver/readarr`   |
+| Prowlarr   | Indexer aggregator | `linuxserver/prowlarr`  |
+| Jellyfin   | Media streaming    | `jellyfin/jellyfin`     |
+| Jellyseerr | Request management | `jellyseerr/jellyseerr` |
 
 **Compose Version:** `3.8`
 
@@ -138,7 +142,7 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
 - **Media Server Protections**
 
-  - With only 1 TB of media Currently no backups for Media
+  - With only 2 TB of media Currently no backups for Media
 
 - **Update Schedule:**
 
@@ -177,7 +181,7 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 ## 🚀 Future Plans
 
 - Implement VLAN segmentation
-- Unraid for mass storage
+- Trunas SCALE for mass storage
 - Transition to Ubiquiti (Router, POE Switch, 2 AP)
 - Offsite Backup
 - Remove as many paid cloud services as possible
@@ -186,7 +190,7 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 - Add more redundancy to the network
 - Log management with Loki or Graylog
 - Expand automation with Ansible, Terraform, GitHub Actions, and NixOS
-- Upgrade media server to 128GB RAM and increase storage to 10TB
+- Upgrade media server memory and increase storage to minimum 40TB (4 x 10TB HDDs)
 - Upgrade PVE and PVE1 to 64GB RAM
   <br>
   <br>
