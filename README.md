@@ -63,7 +63,7 @@ To provide a secure, self-hosted environment for network management, automation,
 
 - **Router:** TP-Link ER-605 (Omada managed)
 - **Switch:** TP-Link TL-SG1016 (16-port unmanaged)
-- **Access Points:** 2× Eero Pro 6 (Bridge mode)
+- **Access Points:** TP-Link EAP610
 - **ISP:** AT&T Modem in bridge mode
 
 <br>
@@ -93,7 +93,7 @@ TP-Link ER-605 (Router)
 |
 Tp-Link TL-SG1016 (Switch) 
 | 
-Eero Routers for wireless AP's (Bridge)
+TP-Link EAP610 (Access Points)
 
 - **Subnet:** 192.168.1.0/24 (Flat network)
 - **DNS/Adblocking:** Pihole (LXC 100)
@@ -108,39 +108,32 @@ Eero Routers for wireless AP's (Bridge)
 
 ### PVE Node:
 
-| CT/VM ID   | Service             | Functionality                        |
-| ---------- | ------------------- | ------------------------------------ |
-| `101` (VM) | Home Assistant      | Smart home automation                |
-| `102`      | Homarr              | Service dashboard                    |
-<!-- | `104`      | Monica              | Personal CRM                         | -->
-| `105`      | MySpeed             | Network speed tests                  |
-| `108`      | Nextcloud           | File sharing & collaboration         |
-| `109`      | NetBox              | Network documentation                |
-| `110`      | phpIPAM             | IP address management                |
-| `111`      | Reactive Resume     | Resume management                    |
-| `112`      | Stirling PDF        | PDF management                       |
-| `114`      | Prometheus          | Monitoring and alerting              |
-| `115`      | Grafana             | Visualization dashboard              |
-| `117`      | Prometheus Exporter | Exports server metrics to Prometheus |
-| `124`      | ITSM-NG             | IT Service Management                |
+| CT/VM ID | Service             | Functionality                        |
+|----------|---------------------|--------------------------------------|
+| 100      | knightbus           | Main utility container               |
+| 102      | homarr              | Service dashboard                    |
+| 105      | myspeed             | Network speed test                   |
+| 108      | nextcloudpi         | File sharing & collaboration         |
+| 109      | netbox              | Network documentation                |
+| 110      | phpipam             | IP address management                |
+| 111      | reactive-resume     | Resume management                    |
+| 112      | stirling-pdf        | PDF management                       |
+| 114      | prometheus          | Monitoring and alerting              |
+| 115      | grafana             | Visualization dashboard              |
+| 116      | docker              | Container management                 |
+| 117      | prometheus-pve-exp  | Proxmox node exporter for metrics    |
+| 125      | linkwarden          | Bookmark & web archiving             |
+| 101 (VM) | haos15.2            | Home Assistant OS VM                 |
 ### PVE1 Node:
 
-| CT/VM ID | Service          | Functionality                |
-| -------- | ---------------- | ---------------------------- |
-<!-- | `100`    | AdGuard Home     | Ad blocking and DNS          | -->
-| `103`    | Omada Controller | Router management            |
-| `104`    | Pihole           | DNS and ad-blocking          |
-| `106`    | RustDesk Server  | Remote access hub            |
-| `107`    | Uptime Kuma      | Service monitoring           |
-| `113`    | Ansible          | Automation and orchestration |
-| `116`    | iVentoy          | Network booting and ISO management |
-| `120`    | Docker           | Container management running Netbot.xyz        | 
-| `122`    | InfluxDB        | Time-series database for metrics |
-| `123`    | Semaphore       | CI/CD pipeline management    |
-| `125`    |Nginx Proxy Manager | Reverse proxy management      |
-| `126`    | Apache Guacamole | Remote desktop gateway       |
-| `127`    | Pialert         | Personal alerting system     |
-
+| CT/VM ID | Service           | Functionality                                 |
+|----------|-------------------|-----------------------------------------------|
+| 103      | omada             | Omada controller for router management        |
+| 104      | pihole            | DNS & ad-blocking                            |
+| 106      | rustdeskserver    | Remote access hub                            |
+| 107      | uptimekuma        | Service monitoring                           |
+| 113      | Ansible           | Automation and orchestration                 |
+| 118      | adguard           | Ad-block/DNS service (alternative to Pihole) |
 <br>
 
 <a name="media"></a>
