@@ -5,17 +5,19 @@
 To provide a secure, self-hosted environment for network management, automation, and media streaming. This homelab leverages Proxmox virtualization, Docker containers, and a flat network architecture to deliver critical services (DNS, ad-blocking, monitoring, automation) and a robust media stack, all managed with strong security (Tailscale VPN), centralized documentation, and automated backups and updates.
 
 ---
-[//]: # (homelab)
+<a name="homelab"></a>
 
 ## 📑 Table of Contents
 
-| [Relevant Repositories](#relevant-repositories) | [Hardware Configuration](#hardware-configuration) | [Secure Connectivity: Tailscale Mesh VPN](#secure-connectivity-tailscale-mesh-vpn) | [Network Architecture](#network-architecture) | [Proxmox Services](#proxmox) | [Media Server Stack](#media-server-stack) | [Backup & Maintenance](#backup--maintenance) | [Documentation & Change Management](#documentation--change-management) | [Future Plans](#future-plans) |
+| [Relevant Repositories](#relevant-repositories) | [Hardware Configuration](#hardware-configuration) | [Tailscale VPN](#secure-connectivity-tailscale-mesh-vpn) | [Network Architecture](#network-architecture) | [Proxmox Services](#proxmox) | [Media Server Stack](#media) | [Backup & Maintenance](#backup--maintenance) | [Docs & Change Mgmt](#documentation) | [Future Plans](#future-plans) |
 
 ---
 
+<a name="relevant-repositories"></a>
+
 ## 📦 Relevant Repositories
 
-[⬆️ Return to Top](#👨🏻‍💻-homelab)
+[⬆️ Return to Top](#homelab)
 
 - [media](https://github.com/jcnichols22/media): Docker Compose files and configuration for the media server stack.
 - [dotfiles](https://github.com/jcnichols22/dotfiles): Personal dotfiles for shell, editor, and system configuration.
