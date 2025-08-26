@@ -63,6 +63,7 @@ To provide a secure, self-hosted environment for network management, automation,
 
 - **Router:** TP-Link ER-605 (Omada managed)
 - **Switch:** TP-Link TL-SG1016 (16-port unmanaged)
+- **Switch:** TP-Link TL-SG3428 (24-port managed Layer 2 Switch)
 - **Access Points:** TP-Link EAP610
 - **ISP:** AT&T Modem in bridge mode
 
