@@ -5,33 +5,30 @@
 To provide a secure, self-hosted environment for network management, automation, and media streaming. This homelab leverages Proxmox virtualization, Docker containers, and a flat network architecture to deliver critical services (DNS, ad-blocking, monitoring, automation) and a robust media stack, all managed with strong security (Tailscale VPN), centralized documentation, and automated backups and updates.
 
 ---
-<a name="homelab"></a>
+[//]: # (homelab)
+
 ## 📑 Table of Contents
 
-| [Relevant Repositories](#relevant-repositories) | [Hardware Configuration](#hardware-configuration) | [Tailscale VPN](#secure-connectivity-tailscale-mesh-vpn) | [Network Architecture](#network-architecture) | [Proxmox Services](#proxmox) | [Media Server Stack](#media) | [Backup & Maintenance](#backup--maintenance) | [Docs & Change Mgmt](#documentation) | [Future Plans](#future-plans) |
+| [Relevant Repositories](#relevant-repositories) | [Hardware Configuration](#hardware-configuration) | [Secure Connectivity: Tailscale Mesh VPN](#secure-connectivity-tailscale-mesh-vpn) | [Network Architecture](#network-architecture) | [Proxmox Services](#proxmox) | [Media Server Stack](#media-server-stack) | [Backup & Maintenance](#backup--maintenance) | [Documentation & Change Management](#documentation--change-management) | [Future Plans](#future-plans) |
 
 ---
 
-<br>
-
-<a name="relevant-repositories"></a>
 ## 📦 Relevant Repositories
 
-[⬆️ Return to Top](#homelab)
+[⬆️ Return to Top](#👨🏻‍💻-homelab)
 
 - [media](https://github.com/jcnichols22/media): Docker Compose files and configuration for the media server stack.
 - [dotfiles](https://github.com/jcnichols22/dotfiles): Personal dotfiles for shell, editor, and system configuration.
 - [Ansible](https://github.com/jcnichols22/Ansible): Main Ansible playbooks for automating homelab provisioning and updates.
 - [ansible_scripts](https://github.com/jcnichols22/ansible_scripts): Additional Ansible scripts and roles for specialized automation tasks.
 
-<br>
-
 <a name="hardware-configuration"></a>
+
 ## 🔧 Hardware Configuration
 
 [⬆️ Return to Top](#homelab)
 
-### Core Devices:
+### Core Devices
 
 ### PVE
 
@@ -67,9 +64,8 @@ To provide a secure, self-hosted environment for network management, automation,
 - **Access Points:** TP-Link EAP610
 - **ISP:** AT&T Modem in bridge mode
 
-<br>
-
 <a name="secure-connectivity-tailscale-mesh-vpn"></a>
+
 ## 🔒 Secure Connectivity: Tailscale Mesh VPN
 
 [⬆️ Return to Top](#homelab)
@@ -81,9 +77,8 @@ This enables:
 - Seamless inter-device communication across physical locations and networks.
 - Simple device onboarding and access control via Tailscale ACLs.
 
-<br>
-
 <a name="network-architecture"></a>
+
 ## 🌐 Network Architecture
 
 [⬆️ Return to Top](#homelab)
@@ -92,22 +87,21 @@ ISP Modem (Passthrough)
 |  
 TP-Link ER-605 (Router)  
 |
-Tp-Link TL-SG1016 (Switch) 
-| 
+Tp-Link TL-SG1016 (Switch)
+|
 TP-Link EAP610 (Access Points)
 
 - **Subnet:** 192.168.1.0/24 (Flat network)
 - **DNS/Adblocking:** Pihole (LXC 100)
 - **DHCP:** ER-605 handling leases
 
-<br>
-
 <a name="proxmox"></a>
+
 ## 🖥️ Proxmox Services (LXC Containers & VM)
 
 [⬆️ Return to Top](#homelab)
 
-### PVE Node:
+### PVE Node
 
 | CT/VM ID | Service             | Functionality                        |
 |----------|---------------------|--------------------------------------|
@@ -125,7 +119,8 @@ TP-Link EAP610 (Access Points)
 | 117      | prometheus-pve-exp  | Proxmox node exporter for metrics    |
 | 125      | linkwarden          | Bookmark & web archiving             |
 | 101 (VM) | haos15.2            | Home Assistant OS VM                 |
-### PVE1 Node:
+
+### PVE1 Node
 
 | CT/VM ID | Service           | Functionality                                 |
 |----------|-------------------|-----------------------------------------------|
@@ -135,9 +130,9 @@ TP-Link EAP610 (Access Points)
 | 107      | uptimekuma        | Service monitoring                           |
 | 113      | Ansible           | Automation and orchestration                 |
 | 118      | adguard           | Ad-block/DNS service (alternative to Pihole) |
-<br>
 
 <a name="media"></a>
+
 ## 🎥 Media Server Stack
 
 [⬆️ Return to Top](#homelab)
@@ -158,9 +153,8 @@ TP-Link EAP610 (Access Points)
 **Data Flow:**  
 Content Requests → \*Arr Apps → Download Clients → Media Library → Jellyfin/Plex
 
-<br>
-
 <a name="backup--maintenance"></a>
+
 ## 🔄 Backup & Maintenance
 
 [⬆️ Return to Top](#homelab)
@@ -172,7 +166,7 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
 - **Media Server Protections**
 
-  - With only 2 TB of media Currently no backups for Media
+  - Currently, there are no backups for media due to the limited 2TB storage
 
 - **Update Schedule:**
 
@@ -187,12 +181,11 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
   - Grafana dashboards for real-time monitoring
   - Uptime Kuma for service availability checks
 
-<br>
-
 <a name="documentation"></a>
+
 ## 📜 Documentation & Change Management
 
-[⬆️ Return to Top](homelab)
+[⬆️ Return to Top](#homelab)
 
 - **Network Documentation:**
   - NetBox for network inventory and IP management
@@ -204,9 +197,8 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
   - Ansible playbooks for configuration management
   - Version control via GitHub for all scripts and configurations
 
-<br>
-
 <a name="future-plans"></a>
+
 ## 🚀 Future Plans
 
 [⬆️ Return to Top](#homelab)
@@ -224,8 +216,6 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 - Upgrade media server memory and increase storage to minimum 40TB (4 x 10TB HDDs)
 - Upgrade PVE and PVE1 to 64GB RAM
 
-<br>
-
 ---
 
-\*\*This setup combines enterprise networking features with self-hosted services, using Proxmox for virtualization and Docker for container management. The flat network simplifies administration while providing essential redundancy through dual
+**This setup combines enterprise networking features with self-hosted services, using Proxmox for virtualization and Docker for container management. The flat network simplifies administration while providing essential redundancy through dual Proxmox nodes, managed switches, and automated backups, ensuring reliability, scalability, and ease of management for all critical services.**
