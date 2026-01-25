@@ -1,6 +1,6 @@
 # 👨🏻‍💻 Homelab
 
-**Last Updated:** July 11th, 2025  
+**Last Updated:** January 25th, 2026  
 **Primary Purpose:**  
 To provide a secure, self-hosted environment for network management, automation, and media streaming. This homelab leverages Proxmox virtualization, Docker containers, and a flat network architecture to deliver critical services (DNS, ad-blocking, monitoring, automation) and a robust media stack, all managed with strong security (Tailscale VPN), centralized documentation, and automated backups and updates.
 
@@ -30,21 +30,24 @@ To provide a secure, self-hosted environment for network management, automation,
 
 [⬆️ Return to Top](#homelab)
 
-### Core Devices
 
-### PVE
+### Proxmox Nodes
 
-- **Platform:** HP ProDesk 600 G3 Mini
-- **OS:** Proxmox VE 8.0
-- **Specs:** i5-7500T | 32GB RAM | 500GB SSD
-- **Role:** Hosts different non critical services for productivity and monitoring in LXC containers
+- **Platform:** HP ProDesk 600 G3 Mini (all nodes)
+- **OS:** Proxmox VE 8.x
+- **Specs:** Intel i5 CPU | 16-32GB RAM | 500GB SSD (per node)
+- **Nodes:**
+  - **PVE**: General productivity and monitoring services
+  - **PVE2**: Network, automation, and utility services
+  - **PVE3**: Network management and DNS/ad-blocking
 
-### PVE1
 
-- **Platform:** HP ProDesk 600 G3 Mini
-- **OS:** Proxmox VE 8.0
-- **Specs:** i5-7500T | 16GB RAM | 500GB SSD
-- **Role:** Hosts critical network services in LXC containers
+### Proxmox Backup Server
+
+- **Platform:** [To be updated: e.g., HP ProDesk, custom build, etc.]
+- **OS:** Proxmox Backup Server
+- **Specs:** [To be updated: CPU, RAM, Storage]
+- **Role:** Centralized backup for all Proxmox nodes and containers
 
 ### Media Server
 
@@ -58,6 +61,7 @@ To provide a secure, self-hosted environment for network management, automation,
 - **Role:** Media stack via Docker containers (Jellyfin, Radarr, Sonarr, Prowlarr, etc.)
 - **Purpose:** Purpose-built media server for 24/7 operation, scalable storage, and home/remote streaming.
 
+
 ### Networking
 
 - **Router:** TP-Link ER-605 (Omada managed)
@@ -65,6 +69,18 @@ To provide a secure, self-hosted environment for network management, automation,
 - **Switch:** TP-Link TL-SG3428 (24-port managed Layer 2 Switch)
 - **Access Points:** TP-Link EAP610
 - **ISP:** AT&T Modem in bridge mode
+
+
+#### Wireless SSIDs
+
+The following SSIDs are mapped to specific VLANs for network segmentation and security. Main and Kids WLANs are separated for device management, while Guest and IoT networks are isolated for security.
+
+| SSID Name         | Security      | Bands         | Guest | Portal | VLAN | Notes                |
+|-------------------|--------------|--------------|-------|--------|------|----------------------|
+| Youre a WiFi Harry| WPA-Personal | 2.4GHz, 5GHz |   No  |   No   |  20   | Kids WLAN            |
+| ChosenWAN         | WPA-Personal | 2.4GHz, 5GHz |   No  |   No   |  10   | Main WLAN            |
+| TheDoorsOfMoria   | None         | 2.4GHz, 5GHz |  Yes  |  Yes   |  40  | Guest network        |
+| Azkaban           | WPA-Personal | 2.4GHz       |   No  |   No   |  30  | IoT network          |
 
 <a name="secure-connectivity-tailscale-mesh-vpn"></a>
 
@@ -81,6 +97,7 @@ This enables:
 
 <a name="network-architecture"></a>
 
+
 ## 🌐 Network Architecture
 
 [⬆️ Return to Top](#homelab)
@@ -93,45 +110,72 @@ Tp-Link TL-SG1016 (Switch)
 |
 TP-Link EAP610 (Access Points)
 
-- **Subnet:** 192.168.1.0/24 (Flat network)
-- **DNS/Adblocking:** Pihole (LXC 100)
+### VLANs
+
+| VLAN ID | Name         | Subnet            | Purpose/Notes                                 |
+|---------|--------------|-------------------|-----------------------------------------------|
+| 1       | DEFAULT      | 192.168.1.0/24    | Current flat/main network (all core devices)  |
+| 10      | MAIN         | 192.168.10.0/24   | Planned main network (future migration target) |
+| 20      | KIDS         | 192.168.20.0/24   | Kids' devices/network                         |
+| 30      | IOT          | 192.168.30.0/24   | IoT devices                                   |
+| 40      | GUEST        | 192.168.40.0/24   | Guest network                                 |
+
+- **DNS/Adblocking:** AdGuard Home (LXC 118)
 - **DHCP:** ER-605 handling leases
 
+
+> **Note:** All devices and services will be migrated from VLAN1 to VLAN10 in the near future as part of a network segmentation project. VLAN10 is currently provisioned but not yet active. VLAN20, VLAN30, and VLAN40 are used for kids, IoT, and guest isolation, respectively.
+
+**Security Note:** Inter-VLAN routing is restricted by firewall rules to ensure isolation between Kids, IoT, and Guest networks. Only necessary traffic is allowed between VLANs for management and monitoring.
+
 <a name="proxmox"></a>
+
 
 ## 🖥️ Proxmox Services (LXC Containers & VM)
 
 [⬆️ Return to Top](#homelab)
 
+
 ### PVE Node
 
-| CT/VM ID | Service             | Functionality                        |
-|----------|---------------------|--------------------------------------|
-| 100      | knightbus           | Main utility container               |
-| 102      | homarr              | Service dashboard                    |
-| 105      | myspeed             | Network speed test                   |
-| 108      | nextcloudpi         | File sharing & collaboration         |
-| 109      | netbox              | Network documentation                |
-| 110      | phpipam             | IP address management                |
-| 111      | reactive-resume     | Resume management                    |
-| 112      | stirling-pdf        | PDF management                       |
-| 114      | prometheus          | Monitoring and alerting              |
-| 115      | grafana             | Visualization dashboard              |
-| 116      | docker              | Container management                 |
-| 117      | prometheus-pve-exp  | Proxmox node exporter for metrics    |
-| 125      | linkwarden          | Bookmark & web archiving             |
-| 101 (VM) | haos15.2            | Home Assistant OS VM                 |
+| CT/VM ID | Service               | Functionality/Notes                |
+|----------|-----------------------|------------------------------------|
+| 100      | exitnode              | VPN exit node                      |
+| 107      | nginxproxymanager     | Reverse proxy management           |
+| 108      | nextcloudpi           | File sharing & collaboration       |
+| 109      | netbox                | Network documentation              |
+| 110      | checkmk               | Monitoring/alerting                |
+| 111      | reactive-resume       | Resume management                  |
+| 112      | stirling-pdf          | PDF management                     |
+| 114      | heimdall-dashboard    | Service dashboard                  |
+| 115      | patchmon              | Patch management                   |
+| 117      | graylog               | Log management                     |
+| 119      | wazuh                 | Security monitoring                |
+| 122      | pulse                 | Status page                        |
+| 123      | convertx              | File conversion                    |
 
-### PVE1 Node
+### PVE2 Node
 
-| CT/VM ID | Service           | Functionality                                 |
-|----------|-------------------|-----------------------------------------------|
-| 103      | omada             | Omada controller for router management        |
-| 104      | pihole            | DNS & ad-blocking                            |
-| 106      | rustdeskserver    | Remote access hub                            |
-| 107      | uptimekuma        | Service monitoring                           |
-| 113      | Ansible           | Automation and orchestration                 |
-| 118      | adguard           | Ad-block/DNS service (alternative to Pihole) |
+| CT/VM ID | Service               | Functionality/Notes                |
+|----------|-----------------------|------------------------------------|
+| 102      | phpipam               | IP address management              |
+| 104      | apache-guacamole      | Remote desktop gateway             |
+| 105      | netbootxyz            | Network boot utility               |
+| 106      | rustdeskserver        | Remote access hub                  |
+| 113      | Ansible               | Automation/orchestration           |
+| 116      | speedtest-tracker     | Network speed testing              |
+| 120      | scanopy               | Document scanning                  |
+
+### PVE3 Node
+
+| CT/VM ID | Service               | Functionality/Notes                |
+|----------|-----------------------|------------------------------------|
+| 103      | omada                 | Omada controller                   |
+| 118      | adguard-home          | DNS/ad-blocking (AdGuard Home)     |
+
+#### Proxmox Backup Server
+
+A dedicated Proxmox Backup Server has been added to the infrastructure for centralized, reliable backups of all nodes and containers.
 
 <a name="media"></a>
 
@@ -220,4 +264,4 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
 ---
 
-**This setup combines enterprise networking features with self-hosted services, using Proxmox for virtualization and Docker for container management. The flat network simplifies administration while providing essential redundancy through dual Proxmox nodes, managed switches, and automated backups, ensuring reliability, scalability, and ease of management for all critical services.**
+**This setup combines enterprise networking features with self-hosted services, using Proxmox for virtualization and Docker for container management. The flat network simplifies administration while providing essential redundancy through three Proxmox nodes, managed switches, and automated backups, ensuring reliability, scalability, and ease of management for all critical services.**
