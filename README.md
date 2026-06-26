@@ -33,24 +33,23 @@ To provide a secure, self-hosted environment for network management, automation,
 
 ### Proxmox Nodes
 
-- **Platform:** HP ProDesk 600 G3 Mini (all nodes)
-- **OS:** Proxmox VE 8.x
+- **Platform:** HP ProDesk 600 G3 Mini (all Ollivanders/BorginBurkes nodes)
+- **OS:** Proxmox VE 9.x
 - **Specs:** Intel i5 CPU | 16-32GB RAM | 500GB SSD (per node)
 - **Nodes:**
-  - **PVE**: General productivity and monitoring services
-  - **PVE2**: Network, automation, and utility services
-  - **PVE3**: Network management and DNS/ad-blocking
-
+  - **Ollivanders:** General productivity, media, and monitoring services
+  - **BorginBurkes:** Network, automation, and utility services
+  - **BorginBurkes3:** Network management and DNS/ad-blocking
 
 ### Proxmox Backup Server
 
-- **Platform:** [To be updated: e.g., HP ProDesk, custom build, etc.]
+- **Hostname:** Gringotts
 - **OS:** Proxmox Backup Server
-- **Specs:** [To be updated: CPU, RAM, Storage]
 - **Role:** Centralized backup for all Proxmox nodes and containers
 
 ### Media Server
 
+- **Hostname:** thepensive
 - **Platform:** Rosewill RSV-Z2600U 2U Rackmount Case
 - **Motherboard:** ASRock B365M-HDV
 - **Processor:** Intel Core i5-8500
@@ -64,10 +63,9 @@ To provide a secure, self-hosted environment for network management, automation,
 
 ### Networking
 
-- **Router:** TP-Link ER-605 (Omada managed)
-- **Switch:** TP-Link TL-SG1016 (16-port unmanaged)
-- **Switch:** TP-Link TL-SG3428 (24-port managed Layer 2 Switch)
-- **Access Points:** TP-Link EAP610
+- **Router:** TheVeil / TP-Link ER-605 (Omada managed)
+- **Switch:** Crossroads / TP-Link TL-SG1016 (16-port unmanaged)
+- **Access Points:** Gate / TP-Link EAP610
 - **ISP:** AT&T Modem in bridge mode
 
 
@@ -102,31 +100,29 @@ This enables:
 
 [⬆️ Return to Top](#homelab)
 
-ISP Modem (Passthrough)  
-|  
-TP-Link ER-605 (Router)  
+ISP Modem (Passthrough)
 |
-Tp-Link TL-SG1016 (Switch)
+Crossroads (Switch)
 |
-TP-Link EAP610 (Access Points)
+TP-Link EAP610 (Gate - Access Points)
+|
+TheVeil / TP-Link ER-605 (Router)
+
+_Velaris uses a segmented flat-and-VLAN hybrid model with defined SSID-to-VLAN bindings._
 
 ### VLANs
 
 | VLAN ID | Name         | Subnet            | Purpose/Notes                                 |
 |---------|--------------|-------------------|-----------------------------------------------|
-| 1       | DEFAULT      | 192.168.1.0/24    | Current flat/main network (all core devices)  |
-| 10      | MAIN         | 192.168.10.0/24   | Planned main network (future migration target) |
-| 20      | KIDS         | 192.168.20.0/24   | Kids' devices/network                         |
-| 30      | IOT          | 192.168.30.0/24   | IoT devices                                   |
-| 40      | GUEST        | 192.168.40.0/24   | Guest network                                 |
+| 1       | DEFAULT      | 192.168.0.0/24    | Core infrastructure and management plane       |
+| 10      | MAIN         | 192.168.10.0/24  | User and general-purpose devices               |
+| 20      | KIDS         | 192.168.20.0/24  | Kids' devices/network                          |
+| 30      | IOT          | 192.168.30.0/24  | IoT devices                                    |
+| 40      | GUEST        | 192.168.40.0/24  | Guest network                                  |
 
 - **DNS/Adblocking:** AdGuard Home (LXC 118)
-- **DHCP:** ER-605 handling leases
-
-
-> **Note:** All devices and services will be migrated from VLAN1 to VLAN10 in the near future as part of a network segmentation project. VLAN10 is currently provisioned but not yet active. VLAN20, VLAN30, and VLAN40 are used for kids, IoT, and guest isolation, respectively.
-
-**Security Note:** Inter-VLAN routing is restricted by firewall rules to ensure isolation between Kids, IoT, and Guest networks. Only necessary traffic is allowed between VLANs for management and monitoring.
+- **DHCP:** TheVeil handling leases
+- **Inter-VLAN routing:** restricted by firewall rules; only required cross-VLAN flows are permitted for management and monitoring
 
 <a name="proxmox"></a>
 
@@ -136,7 +132,7 @@ TP-Link EAP610 (Access Points)
 [⬆️ Return to Top](#homelab)
 
 
-### PVE Node
+### Ollivanders Node
 
 | CT/VM ID | Service               | Functionality/Notes                |
 |----------|-----------------------|------------------------------------|
@@ -154,7 +150,7 @@ TP-Link EAP610 (Access Points)
 | 122      | pulse                 | Status page                        |
 | 123      | convertx              | File conversion                    |
 
-### PVE2 Node
+### BorginBurkes Node
 
 | CT/VM ID | Service               | Functionality/Notes                |
 |----------|-----------------------|------------------------------------|
@@ -166,7 +162,7 @@ TP-Link EAP610 (Access Points)
 | 116      | speedtest-tracker     | Network speed testing              |
 | 120      | scanopy               | Document scanning                  |
 
-### PVE3 Node
+### BorginBurkes Node (Network Management Segment)
 
 | CT/VM ID | Service               | Functionality/Notes                |
 |----------|-----------------------|------------------------------------|
