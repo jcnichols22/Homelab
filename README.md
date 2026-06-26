@@ -38,8 +38,7 @@ To provide a secure, self-hosted environment for network management, automation,
 - **Specs:** Intel i5 CPU | 16-32GB RAM | 500GB SSD (per node)
 - **Nodes:**
   - **Ollivanders:** General productivity, media, and monitoring services
-  - **BorginBurkes:** Network, automation, and utility services
-  - **BorginBurkes3:** Network management and DNS/ad-blocking
+  - **BorginBurkes:** Network, automation, utility, and management services
 
 ### Proxmox Backup Server
 
@@ -166,8 +165,8 @@ _Velaris uses a segmented flat-and-VLAN hybrid model with defined SSID-to-VLAN b
 
 | CT/VM ID | Service               | Functionality/Notes                |
 |----------|-----------------------|------------------------------------|
-| 103      | omada                 | Omada controller                   |
-| 118      | adguard-home          | DNS/ad-blocking (AdGuard Home)     |
+| 103      | omada                 | Omada controller (on BorginBurkes)      |
+| 118      | adguard-home          | DNS/ad-blocking (on BorginBurkes)       |
 
 #### Proxmox Backup Server
 
