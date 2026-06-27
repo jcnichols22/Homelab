@@ -33,9 +33,12 @@ To provide a secure, self-hosted environment for network management, automation,
 
 ### Proxmox Nodes
 
-- **Platform:** HP ProDesk 600 G3 Mini (all nodes)
-- **OS:** Proxmox VE 8.x
-- **Specs:** Intel i5 CPU | 16-32GB RAM | 500GB SSD (per node)
+- **Platform:** HP ProDesk 600 G4 DM (TAA) Mini
+- **OS:** Debian GNU/Linux 13 (trixie) with Proxmox VE 9.2.x
+- **Kernel:** Linux 7.0.2-4-pve
+- **CPU:** Intel Core i5-8500T @ 2.10GHz (6 cores)
+- **RAM:** 31GB DDR4
+- **Storage:** ~500GB SSD (per node)
 - **Datacenter Name:** Diagon Alley
 - **Nodes:**
   - **pve1:** General productivity, media, and monitoring services
@@ -43,7 +46,8 @@ To provide a secure, self-hosted environment for network management, automation,
 
 ### Proxmox Backup Server
 
-- **Hostname/VMID:** Gringotts (102)
+- **Hostname:** Gringotts
+- **VMID:** 102
 - **Platform:** Running on pve1
 - **OS:** Proxmox Backup Server
 - **Role:** Centralized backup for all Proxmox nodes and containers
