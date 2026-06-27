@@ -33,16 +33,18 @@ To provide a secure, self-hosted environment for network management, automation,
 
 ### Proxmox Nodes
 
-- **Platform:** HP ProDesk 600 G3 Mini (all Ollivanders/BorginBurkes nodes)
-- **OS:** Proxmox VE 9.x
+- **Platform:** HP ProDesk 600 G3 Mini (all nodes)
+- **OS:** Proxmox VE 8.x
 - **Specs:** Intel i5 CPU | 16-32GB RAM | 500GB SSD (per node)
+- **Datacenter Name:** Diagon Alley
 - **Nodes:**
-  - **Ollivanders:** General productivity, media, and monitoring services
-  - **BorginBurkes:** Network, automation, utility, and management services
+  - **pve1:** General productivity, media, and monitoring services
+  - **pve2:** Network, automation, utility, and management services
 
 ### Proxmox Backup Server
 
-- **Hostname:** Gringotts
+- **Hostname/VMID:** Gringotts (102)
+- **Platform:** Running on pve1
 - **OS:** Proxmox Backup Server
 - **Role:** Centralized backup for all Proxmox nodes and containers
 
@@ -131,42 +133,43 @@ _Velaris uses a segmented flat-and-VLAN hybrid model with defined SSID-to-VLAN b
 [⬆️ Return to Top](#homelab)
 
 
-### Ollivanders Node
+### pve1 Node
 
-| CT/VM ID | Service               | Functionality/Notes                |
-|----------|-----------------------|------------------------------------|
-| 100      | exitnode              | VPN exit node                      |
-| 107      | nginxproxymanager     | Reverse proxy management           |
-| 108      | nextcloudpi           | File sharing & collaboration       |
-| 109      | netbox                | Network documentation              |
-| 110      | checkmk               | Monitoring/alerting                |
-| 111      | reactive-resume       | Resume management                  |
-| 112      | stirling-pdf          | PDF management                     |
-| 114      | heimdall-dashboard    | Service dashboard                  |
-| 115      | patchmon              | Patch management                   |
-| 117      | graylog               | Log management                     |
-| 119      | wazuh                 | Security monitoring                |
-| 122      | pulse                 | Status page                        |
-| 123      | convertx              | File conversion                    |
+| CT/VM ID | Service | Functionality/Notes |
+|----------|---------|---------------------|
+| 100 | exitnode | VPN exit node |
+| 102 | proxmox-backup-server | PBS / Gringotts |
+| 103 | nextcloudpi | File sharing & collaboration |
+| 106 | rustdeskserver | Remote access hub |
+| 107 | nginxproxymanager | Reverse proxy management |
+| 108 | TheOracle-omada | Omada controller |
+| 112 | termix | File conversion |
+| 113 | Ansible | Automation/orchestration |
+| 114 | pegaprox | -- |
+| 118 | adguard | DNS/ad-blocking |
+| 119 | ntfy | Notifications |
+| 126 | uptimekuma | Uptime monitoring |
+| 127 | homelable | -- |
+| 129 | wazuh | Security monitoring |
 
-### BorginBurkes Node
+### pve2 Node
 
-| CT/VM ID | Service               | Functionality/Notes                |
-|----------|-----------------------|------------------------------------|
-| 102      | phpipam               | IP address management              |
-| 104      | apache-guacamole      | Remote desktop gateway             |
-| 105      | netbootxyz            | Network boot utility               |
-| 106      | rustdeskserver        | Remote access hub                  |
-| 113      | Ansible               | Automation/orchestration           |
-| 116      | speedtest-tracker     | Network speed testing              |
-| 120      | scanopy               | Document scanning                  |
-
-### BorginBurkes Node (Network Management Segment)
-
-| CT/VM ID | Service               | Functionality/Notes                |
-|----------|-----------------------|------------------------------------|
-| 103      | omada                 | Omada controller (on BorginBurkes)      |
-| 118      | adguard-home          | DNS/ad-blocking (on BorginBurkes)       |
+| CT/VM ID | Service | Functionality/Notes |
+|----------|---------|---------------------|
+| 104 | paperless-gpt | Document management |
+| 105 | paperless-ngx | Document management |
+| 109 | paperless-ai | Document management |
+| 110 | syncthing | File sync |
+| 111 | reactive-resume | Resume management |
+| 115 | auto-identity-remove | Cleanup/automation |
+| 116 | openwebui | LLM/web UI |
+| 117 | stirling-pdf | PDF management |
+| 120 | searxng | Search engine |
+| 121 | homarr | Service dashboard |
+| 122 | rackula | -- |
+| 123 | jellyfin | Media streaming |
+| 124 | plex | Media streaming |
+| 128 | netbox | Network documentation |
 
 #### Proxmox Backup Server
 
