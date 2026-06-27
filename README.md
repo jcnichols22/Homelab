@@ -68,22 +68,23 @@ To provide a secure, self-hosted environment for network management, automation,
 
 ### Networking
 
-- **Router:** TheVeil / TP-Link ER-605 (Omada managed)
-- **Switch:** Crossroads / TP-Link TL-SG1016 (16-port unmanaged)
-- **Access Points:** Gate / TP-Link EAP610
+- **Router:** TheVeil / TP-Link ER-605 v2.20 (Omada managed)
+- **Switch:** Crossroads / TP-Link TL-SG3428 v2.30 (Omada managed)
+- **Access Point:** SouthGate / TP-Link EAP660 HD v1.0 (Omada managed)
 - **ISP:** AT&T Modem in bridge mode
 
 
 #### Wireless SSIDs
 
-The following SSIDs are mapped to specific VLANs for network segmentation and security. Main and Kids WLANs are separated for device management, while Guest and IoT networks are isolated for security.
+The following SSIDs are exposed by the Omada controller for site **Velaris**. Policy details (VLAN, security, band) are omitted until verified.
 
-| SSID Name         | Security      | Bands         | Guest | Portal | VLAN | Notes                |
-|-------------------|--------------|--------------|-------|--------|------|----------------------|
-| Youre a WiFi Harry| WPA-Personal | 2.4GHz, 5GHz |   No  |   No   |  20   | Kids WLAN            |
-| ChosenWAN         | WPA-Personal | 2.4GHz, 5GHz |   No  |   No   |  10   | Main WLAN            |
-| TheDoorsOfMoria   | None         | 2.4GHz, 5GHz |  Yes  |  Yes   |  40  | Guest network        |
-| Azkaban           | WPA-Personal | 2.4GHz       |   No  |   No   |  30  | IoT network          |
+| SSID Name         |
+|-------------------|
+| Youre a WiFi Harry|
+| ChosenWAN         |
+| TheLeakyCauldron  |
+| Azkaban           |
+| mgmt              |
 
 <a name="secure-connectivity-tailscale-mesh-vpn"></a>
 
@@ -107,13 +108,13 @@ This enables:
 
 ISP Modem (Passthrough)
 |
-Crossroads (Switch)
+TheVeil (Router / ER-605 v2)
 |
-TP-Link EAP610 (Gate - Access Points)
+Crossroads (Switch / SG3428 v2)
 |
-TheVeil / TP-Link ER-605 (Router)
+SouthGate (EAP660 HD)
 
-_Velaris uses a segmented flat-and-VLAN hybrid model with defined SSID-to-VLAN bindings._
+_Velaris uses Omada-managed segmentation with defined SSID-to-VLAN bindings; policy details are listed separately._
 
 ### VLANs
 
@@ -251,19 +252,13 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
 [⬆️ Return to Top](#homelab)
 
-- Implement VLAN segmentation
-- Trunas SCALE for mass storage
-- Transition to Ubiquiti (Router, POE Switch, 2 AP)
-- Offsite Backup
-- Remove as many paid cloud services as possible
-- GitHub Actions for CI/CD
-- Reverse engineer and use Ansible to deploy and configure services to PVE1 and PVE2
-- Add more redundancy to the network
-- Log management with Loki or Graylog
+- Remove stale peer/PBS placeholders and replace with actual host names
+- Reconcile Homelab README against real Omada-derived inventory (add SouthGate/hostnames)
+- Remove stale reference to `TheDoorsOfMoria`; verify/update actual guest SSID
 - Expand automation with Ansible, Terraform, GitHub Actions, and NixOS
 - Upgrade media server memory and increase storage to minimum 40TB (4 x 10TB HDDs)
-- Upgrade PVE and PVE1 to 64GB RAM
+- Upgrade nodes to 64GB RAM
 
 ---
 
-**This setup combines enterprise networking features with self-hosted services, using Proxmox for virtualization and Docker for container management. The flat network simplifies administration while providing essential redundancy through three Proxmox nodes, managed switches, and automated backups, ensuring reliability, scalability, and ease of management for all critical services.**
+**This setup combines enterprise networking features with self-hosted services, using Proxmox for virtualization and Docker for container management. ReadyWards VLAN and SSID segmentation, managed switching, and central Omada control reduce operational overhead, while Proxmox and Ansible automation keep the environment reproducible and scalable.**
