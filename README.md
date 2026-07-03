@@ -52,6 +52,19 @@ To provide a secure, self-hosted environment for network management, automation,
 - **OS:** Proxmox Backup Server
 - **Role:** Centralized backup for all Proxmox nodes and containers
 
+### Media Server / NAS
+
+- **Hostname:** HOM-NAS-01 / TheArchives
+- **Platform:** 4U 12-bay server chassis
+- **Motherboard:** ASRock H470M-HVS
+- **Processor:** Intel Core i5-10600
+- **Memory:** 2×8 GB Kingston DDR4 2667 MHz
+- **OS:** Unraid OS 7.3
+- **Array:** 30 TB raw, 8 TB used, 22 TB free
+- **Disks:** 8× disks, all healthy
+- **Shares:** NFS exports for `/mnt/user/media` and `/mnt/user/backups`
+- **Role:** Primary file server / NFS/SMB server for the media stack and backups
+
 ### Media Server
 
 - **Hostname:** thepensive
