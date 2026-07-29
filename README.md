@@ -46,7 +46,7 @@ To provide a secure, self-hosted environment for network management, automation,
 
 ### Proxmox Backup Server
 
-- **Hostname:** Gringotts
+- **Hostname:** HallsOfMandos
 - **VMID:** 102
 - **Platform:** Running on pve1
 - **OS:** Proxmox Backup Server
@@ -54,7 +54,7 @@ To provide a secure, self-hosted environment for network management, automation,
 
 ### Media Server / NAS
 
-- **Hostname:** HOM-NAS-01 / TheArchives
+- **Hostname:** TheArchives
 - **Platform:** 4U 12-bay server chassis
 - **Motherboard:** ASRock H470M-HVS
 - **Processor:** Intel Core i5-10600
@@ -156,19 +156,21 @@ _Velaris uses Omada-managed segmentation with defined SSID-to-VLAN bindings; pol
 | CT/VM ID | Service | Functionality/Notes |
 |----------|---------|---------------------|
 | 100 | exitnode | VPN exit node |
-| 102 | proxmox-backup-server | PBS / Gringotts |
+| 102 | HallsOfMandos | Proxmox Backup Server |
 | 103 | nextcloudpi | File sharing & collaboration |
 | 106 | rustdeskserver | Remote access hub |
 | 107 | nginxproxymanager | Reverse proxy management |
-| 108 | TheOracle-omada | Omada controller |
+| 108 | TheOracle | Omada controller |
 | 112 | termix | File conversion |
 | 113 | Ansible | Automation/orchestration |
 | 114 | pegaprox | -- |
 | 118 | adguard | DNS/ad-blocking |
 | 119 | ntfy | Notifications |
 | 126 | uptimekuma | Uptime monitoring |
-| 127 | homelable | -- |
+| 125 | iventoy  |  iPXE  |
+| 127 | Wayfinder | Mileage Tracker |
 | 129 | wazuh | Security monitoring |
+| 101 | Home Assistant | Smart Home Manager |
 
 ### pve2 Node
 
@@ -185,7 +187,7 @@ _Velaris uses Omada-managed segmentation with defined SSID-to-VLAN bindings; pol
 | 120 | searxng | Search engine |
 | 121 | homarr | Service dashboard |
 | 122 | rackula | -- |
-| 123 | jellyfin | Media streaming |
+| 123 | TheArchitect | Hermes Agent |
 | 124 | plex | Media streaming |
 | 128 | netbox | Network documentation |
 
@@ -265,10 +267,7 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 
 [⬆️ Return to Top](#homelab)
 
-- Remove stale peer/PBS placeholders and replace with actual host names
-- Reconcile Homelab README against real Omada-derived inventory (add SouthGate/hostnames)
-- Remove stale reference to `TheDoorsOfMoria`; verify/update actual guest SSID
-- Expand automation with Ansible, Terraform, GitHub Actions, and NixOS
+- Expand automation with Hermes Agent
 - Upgrade media server memory and increase storage to minimum 40TB (4 x 10TB HDDs)
 - Upgrade nodes to 64GB RAM
 
