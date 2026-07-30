@@ -190,6 +190,7 @@ _Velaris uses Omada-managed segmentation with defined SSID-to-VLAN bindings; pol
 | 123 | TheArchitect | Hermes Agent |
 | 124 | plex | Media streaming |
 | 128 | netbox | Network documentation |
+| 130 | madeye | Frigate NVR container |
 
 #### Proxmox Backup Server
 
@@ -274,3 +275,12 @@ Content Requests → \*Arr Apps → Download Clients → Media Library → Jelly
 ---
 
 **This setup combines enterprise networking features with self-hosted services, using Proxmox for virtualization and Docker for container management. ReadyWards VLAN and SSID segmentation, managed switching, and central Omada control reduce operational overhead, while Proxmox and Ansible automation keep the environment reproducible and scalable.**
+
+### Frigate NVR — Recent Migration (2026-07-30)
+
+Frigate was migrated from a standalone Ubuntu Docker host (`192.168.0.9`) to a Proxmox LXC on `pve2` (`192.168.0.130`, VMID 130).
+- 3 cameras: living_room, upstairs, office
+- 14-day continuous 1080p recording, 7-day motion retention
+- Storage: `/media/frigate` → 200 GB Unraid share on TheArchives
+- Hardware accel: VA-API/QSV passthrough; recorder + object detection operational
+- UI is unauthenticated; access is restricted to the VLAN via Omada
